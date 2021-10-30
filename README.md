@@ -51,8 +51,9 @@ for line in $(cat ${bioproject}.txt); do
         --cut_mean_quality 20 \
         --length_required 50 \
         --thread 10 \
+        --json ../qual_ctrl/$time/res_fastp/$bioproject/${line}.json \
         --html ../qual_ctrl/$time/res_fastp/$bioproject/${line}.html \
-        &> ${line}.log
+        &> ../qual_ctrl/$time/res_fastp/$bioproject/${line}.log
 
 done
 
