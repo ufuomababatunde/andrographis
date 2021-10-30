@@ -1,7 +1,7 @@
 # Andrographis paniculata
 Transcriptome analysis of Andrographis paniculata
 
-### Downloading the sequence files
+### 1. Downloading the sequence files
 dl.sh
 ```bash
 #!/bin/bash
@@ -20,5 +20,41 @@ for line in $(cat ${bioproject}.txt); do                    #opens a txt file co
 done
 ```
 
-### Quality Control
+### 2. Quality Control
+fastp.sh
+```bash
+#!/bin/bash
 
+bioproject=PRJNA326960
+time=2021-10-30
+
+mkdir ../$time/res_fastp/$bioproject
+
+pushd ../../seq_files
+for line in $(cat ${bioproject}.txt); do
+        echo Running on $line ......
+
+        fastp \
+        --in1 ./$bioproject/${line}_1.fastq \
+        --out1 ../qual_ctrl/$time/res_fastp/$bioproject/trimmed.${line}_1.fastq \
+        --unpaired1 ../qual_ctrl/$time/res_fastp/$bioproject/unpaired.${line}_1.fastq \
+        --in2 ./$bioproject/${line}_2.fastq \
+        --out2 ../qual_ctrl/$time/res_fastp/$bioproject/trimmed.${line}_2.fastq \
+        --unpaired2 ../qual_ctrl/$time/res_fastp/$bioproject/unpaired.${line}_2.fastq \
+        --merge \
+        --merged_out ../qual_ctrl/$time/res_fastp/$bioproject/merged.${line}.fastq \
+        --detect_adapter_for_pe \
+        --dedup \
+        --trim_poly_g \
+        --cut_front \
+        --cut_tail \
+        --cut_mean_quality 20 \
+        --length_required 50 \
+        --thread 10 \
+        --html ../qual_ctrl/$time/res_fastp/$bioproject/${line}.html \
+        &> ${line}.log
+
+done
+
+popd
+```
