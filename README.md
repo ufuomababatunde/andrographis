@@ -26,7 +26,7 @@ fastp.sh
 #!/bin/bash
 
 bioproject=PRJNA326960
-time=2021-10-30
+time=first
 
 mkdir ../$time/res_fastp/$bioproject
 
