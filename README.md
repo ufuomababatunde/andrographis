@@ -25,12 +25,18 @@ fastp.sh
 ```bash
 #!/bin/bash
 
+#sets the target bioproject ID
 bioproject=PRJNA326960
+
+#sets the target directory output. Named according to the nth time/batch it was run.
 time=first
 
+#makes a directory based on the target bioproject
 mkdir ../$time/res_fastp/$bioproject
 
+#goes to the directory and sets it on the top of the stack; for easy navigation
 pushd ../../seq_files
+
 for line in $(cat ${bioproject}.txt); do
         echo Running on $line ......
 
@@ -53,9 +59,11 @@ for line in $(cat ${bioproject}.txt); do
         --thread 10 \
         --json ../qual_ctrl/$time/res_fastp/$bioproject/${line}.json \
         --html ../qual_ctrl/$time/res_fastp/$bioproject/${line}.html \
-        &> ../qual_ctrl/$time/res_fastp/$bioproject/${line}.log
+        &> ../qual_ctrl/$time/res_fastp/$bioproject/${line}.log #redirects the stderror and stdout and
+                                                                #writes on the log file; for process assessment 
 
 done
 
+#goes back to the previous directory before 'pushd'
 popd
 ```
