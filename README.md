@@ -57,8 +57,8 @@ for line in $(cat ${bioproject}.txt); do
         --cut_mean_quality 20 \
         --length_required 50 \
         --thread 10 \
-        --json ../qual_ctrl/$time/res_fastp/$bioproject/${line}.json \
-        --html ../qual_ctrl/$time/res_fastp/$bioproject/${line}.html \
+        --json ../qual_ctrl/$time/res_fastp/$bioproject/${line}.fastp.json \
+        --html ../qual_ctrl/$time/res_fastp/$bioproject/${line}.fastp.html \
         &> ../qual_ctrl/$time/res_fastp/$bioproject/${line}.log #redirects the stderror and stdout and
                                                                 #writes on the log file; for process assessment 
 
